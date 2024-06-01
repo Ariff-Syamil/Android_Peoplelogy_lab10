@@ -1,5 +1,6 @@
 package com.example.lab10
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -16,5 +17,10 @@ class ThankyouActivity : AppCompatActivity() {
         binding = ActivityThankyouBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        binding.gotoportalBtn.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

@@ -32,8 +32,8 @@ class SignupActivity : AppCompatActivity() {
 
     fun createUser(email:String, password:String) {
         // createUser use email and password
-        auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener { task ->
-
+        auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener {
+            task ->
             if (task.isSuccessful){
                 val intent = Intent(this, ThankyouActivity::class.java)
                 startActivity(intent)
@@ -42,8 +42,8 @@ class SignupActivity : AppCompatActivity() {
                 Snackbar.make(
                     binding.root,
                     "Enter a valid username and password",
-                    Snackbar.LENGTH_LONG
-                ).show()
+                    Snackbar.LENGTH_LONG)
+                    .show()
             }
         }
     }
