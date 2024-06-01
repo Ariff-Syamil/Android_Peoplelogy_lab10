@@ -13,6 +13,9 @@ class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
 
     private lateinit var  auth: FirebaseAuth;
+
+    private lateinit var db: FirebaseFirestore;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -28,6 +31,8 @@ class SignupActivity : AppCompatActivity() {
                 binding.signupPasswordEditText.text.toString())
         }
 
+        db = Firebase.firestore
+
     }
 
     fun createUser(email:String, password:String) {
@@ -35,8 +40,7 @@ class SignupActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener {
             task ->
             if (task.isSuccessful){
-                val intent = Intent(this, ThankyouActivity::class.java)
-                startActivity(intent)
+                newCustomer()
             }
             else {
                 Snackbar.make(
@@ -45,6 +49,35 @@ class SignupActivity : AppCompatActivity() {
                     Snackbar.LENGTH_LONG)
                     .show()
             }
+        }.addOnFailureListener { err->
+            Log.d("debug", err.stackTraceToString())
+            Snackbar.make(binding.root,
+                err.message!!,
+                Snackbar.LENGTH_LONG)
+                .show()
+        }
+    }
+
+    private fun newCustomer() {
+
+        val custommer = hashMapOf(
+            "name" to binding.signupNameEditText.text.toString().trim(),
+            "city" to binding.signupCityEditText.text.toString().trim(),
+            "country" to binding.signupCountryEditText.toString().trim(),
+            "phone" to binding.signupPhoneEditText.toString().trim(),
+
+        )
+
+        db.collection("customers")
+            .add(customer)
+            .addOnSuccessListener {
+                documentReference ->
+                Log.d("debug", "Document successfully added with id ${documentReference.id}")
+                val intent = Intent(this, ThankyouActivity::class.java)
+                startActivity(intent)
+            }
+            .addOnFailureListener { err->
+            Log.d("debug", "An error happen ${e.message}")
         }
     }
 }

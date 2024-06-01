@@ -12,12 +12,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Name"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="enter your name"/>
+        android:layout_marginBottom="16dp"
+        android:text="Home Interface"
+        android:textSize="32dp"
+        android:gravity="center"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/newAccount"
-            android:text="New Account"/>
+            android:text="Create New Account"/>
 
     </LinearLayout>
 
